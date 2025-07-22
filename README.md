@@ -1,6 +1,6 @@
 # 🐶 Dog Breeds Management API
 
-This is a simple RESTful API built with Node.js and Express for managing dog breeds and user authentication. It supports CRUD operations for dog breeds and sub-breeds and basic login/logout functionality.
+This is a simple API project built with Node.js and Express for managing dog breeds and user authentication. It supports CRUD operations for dog breeds and sub-breeds and basic login/logout functionality.
 
 ---
 
@@ -51,19 +51,19 @@ Logs in a user.
 
 ```json
 {
-  "email": "admin@example.com",
-  "password": "secret"
+  "email": "test@gmail.com",
+  "password": "abcdef"
 }
 ```
 
 - **Response:** 200 OK if successful
 
-- **cURL:**
+- **curl:**
 
 ```bash
 curl -X POST http://localhost:3000/api/login \
   -H "Content-Type: application/json" \
-  -d '{"email": "admin@example.com", "password": "secret"}'
+  -d '{"email": "test@gmail.com", "password": "abcdef"}'
 ```
 
 ---
@@ -74,7 +74,7 @@ curl -X POST http://localhost:3000/api/login \
 
 Logs out the user.
 
-- **cURL:**
+- **curl:**
 
 ```bash
 curl -X POST http://localhost:3000/api/logout
@@ -94,7 +94,7 @@ Verifies if the user is logged in.
 { "isLoggedIn": true }
 ```
 
-- **cURL:**
+- **curl:**
 
 ```bash
 curl -X POST http://localhost:3000/api/verifylogin
@@ -112,7 +112,7 @@ curl -X POST http://localhost:3000/api/verifylogin
 
 Returns all dog breeds with their sub-breeds.
 
-- **cURL:**
+- **curl:**
 
 ```bash
 curl http://localhost:3000/api/breeds
@@ -135,7 +135,7 @@ Add a new breed with optional sub-breeds.
 }
 ```
 
-- **cURL:**
+- **curl:**
 
 ```bash
 curl -X POST http://localhost:3000/api/breeds \
@@ -161,7 +161,7 @@ Replaces the sub-breeds for a specific breed.
 
 - **Example URL:** `/api/breeds/husky/subbreeds`
 
-- **cURL:**
+- **curl:**
 
 ```bash
 curl -X PUT http://localhost:3000/api/breeds/husky/subbreeds \
@@ -179,7 +179,7 @@ Deletes the specified breed.
 
 - **Example URL:** `/api/breeds/husky`
 
-- **cURL:**
+- **curl:**
 
 ```bash
 curl -X DELETE http://localhost:3000/api/breeds/husky
@@ -202,8 +202,8 @@ curl -X DELETE http://localhost:3000/api/breeds/husky
 
 ```json
 {
-  "email": "admin@example.com",
-  "password": "secret",
+  "email": "test@gmail.com",
+  "password": "abcdef",
   "isLoggedIn": false
 }
 ```
@@ -214,13 +214,4 @@ curl -X DELETE http://localhost:3000/api/breeds/husky
 
 - Node.js
 - Express
-- fs-extra
-- CORS
 
----
-
-## 📃 License
-
-This project is open-source and free to use.
-
----
