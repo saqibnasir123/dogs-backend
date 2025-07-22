@@ -5,6 +5,7 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const DATA_FILE = path.join(__dirname, 'model', 'dogs.json');
+const filePath= path.join(__dirname,'model', 'login-credentials.json')
 
 app.use(cors());
 app.use(express.json());
@@ -25,6 +26,26 @@ const loadDogs = async () => {
 };
 
 const saveDogs = (data) => fs.writeJson(DATA_FILE, data, { spaces: 2 });
+
+// --- Utility functions for login-credentials.json ---
+// Load login credentials
+const loadLoginCredentials = async () => {
+  
+    // Ensure the 'model' directory exists
+    const data = await fs.readJson(filePath);
+    return data;
+   
+};
+
+// Save login credentials
+const saveLoginCredentials = async (data) => {
+    await fs.writeJson(filePath, data, { spaces: 2 });
+  
+};
+
+
+
+
 
 // GET all breeds and sub-breeds
 app.get('/api/breeds', async (req, res) => {
@@ -94,6 +115,45 @@ app.delete('/api/breeds/:breed', async (req, res) => {
     res.status(500).json({ message: 'Failed to delete breed.' });
   }
 });
+
+// POST Login Endpoint
+app.post('/api/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: 'Email and password are required.' });
+  }
+
+  try {
+    let userData = await loadLoginCredentials();
+
+    if (userData.email === email && userData.password === password) {
+      
+      userData.isLoggedIn = true;
+      await saveLoginCredentials(userData);
+
+      return res.status(200).json({ message: 'Login successful!', isLoggedIn: true });
+    } else {
+      return res.status(401).json({ message: 'Invalid email or password.' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message || 'Internal server error during login.' });
+  }
+});
+
+// POST Logout Endpoint
+app.post('/api/logout', async (req, res) => {
+  try {
+    let userData = await loadLoginCredentials();
+    userData.isLoggedIn = false;
+    await saveLoginCredentials(userData);
+
+    return res.status(200).json({ message: 'Logout successful!', isLoggedIn: false });
+  } catch (error) {
+    res.status(500).json({ message: error.message || 'Internal server error during logout.' });
+  }
+});
+
 
 // Start server
 app.listen(PORT, () => {
