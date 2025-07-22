@@ -153,6 +153,16 @@ app.post('/api/logout', async (req, res) => {
     res.status(500).json({ message: error.message || 'Internal server error during logout.' });
   }
 });
+//verify user loggedin
+app.post('/api/verifyLogin', async (req, res) => {
+  try {
+    let userData = await loadLoginCredentials();
+    
+    return res.status(200).json({ message: 'User Verified', isLoggedIn: userData.isLoggedIn });
+  } catch (error) {
+    res.status(500).json({ message: error.message || 'Internal server error during logout.' });
+  }
+});
 
 
 // Start server
