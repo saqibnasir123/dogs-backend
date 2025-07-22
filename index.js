@@ -154,7 +154,7 @@ app.post('/api/logout', async (req, res) => {
   }
 });
 //verify user loggedin
-app.post('/api/verifyLogin', async (req, res) => {
+app.post('/api/verifylogin', async (req, res) => {
   try {
     let userData = await loadLoginCredentials();
     
